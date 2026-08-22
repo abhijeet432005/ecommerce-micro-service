@@ -1,1 +1,28 @@
+require('dotenv').config()
 const express = require('express')
+const connectToDB = require('./db/db')
+const paymentRoutes = require('./routes/payment.route')
+const { connect } = require('./broker/broker')
+
+// middle ware
+const cookieParser = require('cookie-parser')
+
+// connect to database
+connectToDB()
+
+// connect to rabbitmq
+connect()
+
+
+// create server
+const app = express()
+
+// use middlewwre
+app.use(express.json())
+app.use(cookieParser())
+
+
+// use routes
+app.use('/payments', paymentRoutes)
+
+module.exports = app

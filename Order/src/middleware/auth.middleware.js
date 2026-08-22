@@ -20,6 +20,8 @@ const createAuthMiddleware = (role = ["user"]) => {
                 })
             }
 
+
+
             req.user = decode
             next()
 

@@ -5,14 +5,6 @@ const axios = require('axios')
 const createOrder = async (req, res) => {
     const user = req.user
     const token = req.cookies.token || req.headers?.authorization?.split(' ')[1]
-    console.log({
-        street: req.body.shippingAddress.street,
-        city: req.body.shippingAddress.city,
-        state: req.body.shippingAddress.state,
-        pincode: req.body.shippingAddress.pincode,
-        country: req.body.shippingAddress.country,
-    })
-
     try {
         const cartResponse = await axios.get('http://localhost:3002/cart', {
             headers: {
@@ -115,6 +107,7 @@ const getOrderById = async (req, res) => {
     try {
         const orderId = req.params.id
         const user = req.user
+
 
         const order = await orderModel.findById(orderId)
 
