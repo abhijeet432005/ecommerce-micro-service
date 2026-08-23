@@ -37,6 +37,20 @@ const createPayment = async (req, res) => {
             }
         })
 
+        // PAYMENT_NOTIFICATION.PAYMENT_INITIATED
+        await publishToQueue("PAYMENT_NOTIFICATION.PAYMENT_INITIATED", {
+            email: user.email,
+            paymentId: payment._id,
+            orderId: payment.order,
+            amount: payment.price.amount / 100,
+            currency: payment.price.currency,
+            fullName: user.fullName,
+        })
+
+        // SELLER_DASHBOARD.PAYMENT_CREATED
+
+        await publishToQueue("SELLER_DASHBOARD.PAYMENT_CREATED", payment);
+
         res.status(201).json({
             message: "Payment initiated",
             payment
@@ -92,6 +106,9 @@ const verifyPayment = async (req, res) => {
             currency: payment.price.currency,
             fullName: req.user.fullName,
         })
+
+        // SELLER_DASHBOARD.PAYMENT_UPDATED
+        await publishToQueue("SELLER_DASHBOARD.PAYMENT_UPDATED", payment);
 
         res.status(200).json({
             message: "Payment verified successfully",

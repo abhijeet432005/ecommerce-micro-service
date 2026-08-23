@@ -37,10 +37,16 @@ const createProductValidator = [
         .withMessage("Price currency must be a 3-letter currency code")
         .isUppercase()
         .withMessage("Price currency must be uppercase"),
-    
+
+    body("stock")
+        .notEmpty()
+        .withMessage("stock is required")
+        .isFloat({ gt: 0 })
+        .withMessage("Should be greater than 0"),
+
     handleValidationErrors
 
-    
+
 ];
 
 

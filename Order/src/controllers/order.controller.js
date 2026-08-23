@@ -1,6 +1,7 @@
 const { default: mongoose } = require('mongoose')
 const orderModel = require('../models/orders.models')
 const axios = require('axios')
+const { publishToQueue } = require('../broker/broker')
 
 const createOrder = async (req, res) => {
     const user = req.user
@@ -60,6 +61,8 @@ const createOrder = async (req, res) => {
                 country: req.body.shippingAddress.country,
             }
         })
+
+        await publishToQueue("PRODUCT_SELLER_DASHBOARD.ORDER_CREATED", order)
 
         res.status(201).json({
             order

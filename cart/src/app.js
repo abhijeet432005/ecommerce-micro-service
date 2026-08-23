@@ -12,9 +12,19 @@ connectToDB()
 // server created
 const app = express()
 
+
+
 // user middleware
 app.use(express.json())
 app.use(cookieParser())
+
+
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Cart service is running"
+    })
+})
+
 
 // routes
 app.use('/cart', cartRoutes)

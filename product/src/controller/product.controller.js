@@ -1,6 +1,7 @@
 const { uploadImage } = require("../service/imageKit.service")
 const productModel = require('../model/product.model')
 const { default: mongoose } = require("mongoose")
+const { publishToQueue } = require("../broker/broker")
 
 const createProduct = async (req, res) => {
     try {
@@ -30,6 +31,14 @@ const createProduct = async (req, res) => {
                 currency: priceCurrency,
             },
             images
+        })
+
+        await publishToQueue("PRODUCT_SELLER_DASHBOARD.PRODUCT_CREATED", product)
+        await publishToQueue("PRODUCT_NOTIFICATION.PRODUCT_CREATED", {
+            email: req.user.email,
+            productId: product._id,
+            sellerId: req.user.id,
+            userName: req.user.userName
         })
 
         return res.status(201).json({
@@ -94,6 +103,7 @@ const getByID = async (req, res) => {
 
 const updateProduct = async (req, res) => {
     const { id } = req.params
+    console.log(id)
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(400).json({
@@ -134,6 +144,9 @@ const updateProduct = async (req, res) => {
         }
     }
     await product.save();
+
+    await publishToQueue("PRODUCT_SELLER_DASHBOARD.PRODUCT_UPDATED", product)
+
     return res.status(200).json({ message: 'Product updated', data: product });
 
 }
@@ -162,6 +175,7 @@ const deleteProduct = async (req, res) => {
     }
 
     await productModel.findOneAndDelete({ _id: id })
+    await publishToQueue("PRODUCT_SELLER_DASHBOARD.PRODUCT_DELETED", { id })
     return res.status(200).json({ message: 'Product deleted' });
 
 }
@@ -169,7 +183,7 @@ const deleteProduct = async (req, res) => {
 
 const getSellerProduct = async (req, res) => {
     const seller = req.user
-    
+
     const { skip = 0, limit = 20 } = req.query
 
     const products = await productModel.find({ seller: seller.id }).skip(skip).limit(Math.min(limit, 20))

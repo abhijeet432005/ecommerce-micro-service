@@ -1,5 +1,8 @@
 const app = require('./src/app')
 const connectToDB = require('./src/db/db')
+const { connect } = require('./src/broker/broker')
+
+connect()
 
 // Connect to database before starting server
 connectToDB()

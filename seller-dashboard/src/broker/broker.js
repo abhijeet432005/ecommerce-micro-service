@@ -14,7 +14,7 @@ async function connect() {
     }
 }
 
-async function publishToQueue(queueName, data = {}) {
+async function publ1ishToQueue(queueName, data = {}) {
     if (!channel || !connection) await connect()
 
     await channel.assertQueue(queueName, {
@@ -46,6 +46,6 @@ module.exports = {
     connect,
     channel,
     connection, 
-    publishToQueue,
+    publ1ishToQueue,
     subscribeToQueue
 }
