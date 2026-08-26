@@ -4,7 +4,7 @@ const { z } = require('zod')
 
 const searchProduct = tool(async ({ query }, config) => {
     const token = config?.metadata?.token
-    const response = await axios.get(`http://localhost:3001/products?q=${encodeURIComponent(query)}`, {
+    const response = await axios.get(`http://shopcart-alb-1149300639.ap-south-1.elb.amazonaws.com/products?q=${encodeURIComponent(query)}`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -23,7 +23,7 @@ const searchProduct = tool(async ({ query }, config) => {
 
 const addProductToCart = tool(async ({ productId, qty = 1 }, config) => {
     const token = config?.metadata?.token
-    const response = await axios.post(`http://localhost:3002/cart/items`, {
+    const response = await axios.post(`http://shopcart-alb-1149300639.ap-south-1.elb.amazonaws.com/cart/items`, {
         productId,
         qty
     }, {

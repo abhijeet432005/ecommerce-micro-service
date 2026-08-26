@@ -15,7 +15,7 @@ const createPayment = async (req, res) => {
         const orderId = req.params.orderId
         console.log("User:", user)
 
-        const orderResponse = await axios.get(`http://localhost:3003/orders/${orderId}`, {
+        const orderResponse = await axios.get(`http://shopcart-alb-1149300639.ap-south-1.elb.amazonaws.com/api/orders/${orderId}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -42,9 +42,9 @@ const createPayment = async (req, res) => {
             email: user.email,
             paymentId: payment._id,
             orderId: payment.order,
-            amount: payment.price.amount / 100,
+            amount: payment.price.amount,
             currency: payment.price.currency,
-            fullName: user.fullName,
+            userName: user.userName,
         })
 
         // SELLER_DASHBOARD.PAYMENT_CREATED
@@ -104,7 +104,7 @@ const verifyPayment = async (req, res) => {
             orderId: payment.order,
             amount: payment.price.amount / 100,
             currency: payment.price.currency,
-            fullName: req.user.fullName,
+            userName: user.userName,
         })
 
         // SELLER_DASHBOARD.PAYMENT_UPDATED
@@ -122,7 +122,7 @@ const verifyPayment = async (req, res) => {
             email: req.user.email,
             orderId: razorpayOrderId,
             paymentId: razorpayPaymentId,
-            fullName: req.user.fullName,
+            userName: user.userName,
         })
         res.status(500).send('Error verifying payment');
     }

@@ -21,14 +21,14 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.get("/", (req, res ) => {
+app.get('/', (req, res) => {
     res.status(200).json({
         message: "Product service is running"
-    })
+    });
 })
 
 
 // routes
-app.use('/products', productRoutes)
+app.use('/api/products', productRoutes)
 
 module.exports = app

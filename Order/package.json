@@ -10,7 +10,7 @@
     "test:verbose": "jest --verbose",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "dev": "nodemon server.js",
-    "start": "server.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",

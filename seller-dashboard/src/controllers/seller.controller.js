@@ -61,7 +61,8 @@ const getOrders = async (req, res) => {
         const seller = req.user;
 
         // Get all products for this seller
-        const products = await productModel.find({ seller: seller._id });
+        const products = await productModel.find({ seller: seller.id });
+        console.log("Seller's Products:", products)
         const productIds = products.map(p => p._id);
 
         // Get all orders containing seller's products
@@ -91,7 +92,7 @@ const getProducts = async (req, res) => {
     try {
         const seller = req.user;
 
-        const products = await productModel.find({ seller: seller._id }).sort({ createdAt: -1 });
+        const products = await productModel.find({ seller: seller.id }).sort({ createdAt: -1 });
 
         return res.json(products);
     } catch (error) {

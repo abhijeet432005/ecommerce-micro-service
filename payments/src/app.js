@@ -31,6 +31,6 @@ app.get("/", (req, res) => {
 
 
 // use routes
-app.use('/payments', paymentRoutes)
+app.use('/api/payments', paymentRoutes)
 
 module.exports = app

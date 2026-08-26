@@ -7,14 +7,14 @@ const createOrder = async (req, res) => {
     const user = req.user
     const token = req.cookies.token || req.headers?.authorization?.split(' ')[1]
     try {
-        const cartResponse = await axios.get('http://localhost:3002/cart', {
+        const cartResponse = await axios.get('http://shopcart-alb-1149300639.ap-south-1.elb.amazonaws.com/cart', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
 
         const products = await Promise.all(cartResponse.data.cart.items.map(async (item) => {
-            return (await axios.get(`http://localhost:3001/products/${item.productId}`, {
+            return (await axios.get(`http://shopcart-alb-1149300639.ap-south-1.elb.amazonaws.com/api/products/${item.productId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

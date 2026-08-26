@@ -30,6 +30,5 @@ app.get("/", (req, res ) => {
 
 // use routes
 app.use("/auth", authRoutes)
-app.use("/auth", authRoutes)
 
 module.exports = app

@@ -21,6 +21,6 @@ app.get("/", (req, res) => {
 })
 
 // use routes
-app.use('/orders', orderRoutes)
+app.use('/api/orders', orderRoutes)
 
 module.exports = app

@@ -30,33 +30,33 @@ module.exports = function () {
     subscribeToQueue("PAYMENT_NOTIFICATION.PAYMENT_INITIATED", async (data) => {
         const emailHTMLTemplate = `
             <h1>Payment Initiated</h1>
-            <p>Hello, ${data.fullName.firstName + " " + (data.fullName.lastName || "")}!</p>
-            <p>Your payment of ${data.currency} $${data.amount} has been initiated. We will notify you once it's completed.</p>
+            <p>Hello, ${data.userName}!</p>
+            <p>Your payment of ${data.currency} Rs${data.amount} has been initiated. We will notify you once it's completed.</p>
             <p>Best regards,<br>Your Company</p>
         `
 
-        await sendEmail(data.email, "Payment Initiated", `Your payment of ${data.currency} $${data.amount} has been initiated.`, emailHTMLTemplate)
+        await sendEmail(data.email, "Payment Initiated", `Your payment of ${data.currency} Rs${data.amount} has been initiated.`, emailHTMLTemplate)
     })
 
     subscribeToQueue("PAYMENT_NOTIFICATION.PAYMENT_COMPLETED", async (data) => {
         const emailHTMLTemplate = `
             <h1>Payment Successful!</h1>
-            <p>Hello, ${data.fullName.firstName + " " + (data.fullName.lastName || "")}!</p>
-            <p>Your payment of ${data.currency} $${data.amount} was successful. Thank you for your purchase!</p>
+            <p>Hello, ${data.userName}!</p>
+            <p>Your payment of ${data.currency} Rs.${data.amount} was successful. Thank you for your purchase!</p>
             <p>Best regards,<br>Your Company</p>
         `
 
-        await sendEmail(data.email, "Payment Confirmation", `Your payment of ${data.currency} $${data.amount} was successful.`, emailHTMLTemplate)
+        await sendEmail(data.email, "Payment Confirmation", `Your payment of ${data.currency} Rs${data.amount} was successful.`, emailHTMLTemplate)
     })
 
     subscribeToQueue("PAYMENT_NOTIFICATION.PAYMENT_FAILED", async (data) => {
         const emailHTMLTemplate = `
             <h1>Payment Failed</h1>
-            <p>Hello, ${data.fullName.firstName + " " + (data.fullName.lastName || "")}!</p>
+            <p>Hello, ${data.userName}!</p>
             <p>Unfortunately, your payment of the orderID ${data.orderId} failed. Please try again.</p>
             <p>Best regards,<br>Your Company</p>
         `
 
-        await sendEmail(data.email, "Payment Failed", `Your payment of ${data.currency} $${data.amount} failed. Please try again.`, emailHTMLTemplate)
+        await sendEmail(data.email, "Payment Failed", `Your payment of ${data.currency} Rs${data.amount} failed. Please try again.`, emailHTMLTemplate)
     })
 }
