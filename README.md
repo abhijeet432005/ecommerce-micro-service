@@ -137,8 +137,8 @@ This approach keeps services loosely coupled and allows background operations to
 4. Authentication credentials are returned/stored using cookies.
 5. Protected services validate the authenticated user before processing requests.
 
-[!Authentication](assets/image.png)
-[!](assets/image1.png)
+![Authentication Flow Diagram](assets/image.png)
+![Authentication Details Diagram](assets/image1.png)
 
 ### Product Flow
 
@@ -147,8 +147,8 @@ This approach keeps services loosely coupled and allows background operations to
 3. Product data is stored/retrieved from the product database.
 4. Product Service returns the requested product information.
 
-[!](assets/prod-1.png)
-[!](assets/prod-2.png)
+![Product Flow Diagram 1](assets/prod-1.png)
+![Product Flow Diagram 2](assets/prod-2.png)
 
 ### Cart Flow
 
@@ -158,8 +158,8 @@ This approach keeps services loosely coupled and allows background operations to
 4. Cart Service updates or retrieves the user's cart.
 5. The updated cart data is returned to the client.
 
-[!](assets/cart-1.png)
-[!](assets/cart-2.png)
+![Cart Flow Diagram 1](assets/cart-1.png)
+![Cart Flow Diagram 2](assets/cart-2.png)
 
 ### Order Flow
 
@@ -169,8 +169,8 @@ This approach keeps services loosely coupled and allows background operations to
 4. Order Service creates and stores the order.
 5. The order is prepared for the payment process.
 
-[!](assets/order-1.png)
-[!](assets/order-2.png)
+![Order Flow Diagram 1](assets/order-1.png)
+![Order Flow Diagram 2](assets/order-2.png)
 
 ### Payment Flow
 
@@ -182,7 +182,7 @@ This approach keeps services loosely coupled and allows background operations to
 6. Payment status is stored in the payment database.
 7. Relevant payment events are published through RabbitMQ.
 
-[!](assets/payment.png)
+![Payment Flow Diagram](assets/payment.png)
 
 ### Notification Flow
 
@@ -191,7 +191,7 @@ This approach keeps services loosely coupled and allows background operations to
 3. Notification Service processes the event.
 4. The required notification workflow is executed asynchronously.
 
-[!](assets/noti.png)
+![Notification Flow Diagram](assets/noti.png)
 
 ### Seller Flow
 
@@ -200,7 +200,7 @@ This approach keeps services loosely coupled and allows background operations to
 3. Seller-related data and operations are processed asynchronously.
 4. Seller information can be used for seller-side operations and dashboard workflows.
 
-[!](assets/seller.png)
+![Seller Flow Diagram](assets/seller.png)
 
 ### AI Buddy Flow
 
@@ -208,7 +208,7 @@ This approach keeps services loosely coupled and allows background operations to
 2. AI Buddy processes the request using the configured AI integration.
 3. The generated response is returned to the client.
 
-[!](assets/ai.png)
+![AI Buddy Flow Diagram](assets/ai.png)
 
 ## 📨 RabbitMQ Event Architecture
 
